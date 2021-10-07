@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <title>Usuń/Edytuj Pracownika</title>
+</head>
+
+<body>
+<section layout:fragment="content">
+
+    <div class="container">
+        <h4>   <strong th:text="${header}"/>  </h4>
+
+    </div>
+
+
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                <tr  class="active">
+                    <th>ID pracownika</th>
+                    <th>Imię</th>
+                    <th>Nazwisko</th>
+                    <th>Telefon</th>
+                    <th>Pesel</th>
+                    <th>Data zatrudnienia</th>
+                    <th>Pensja</th>
+                    <th>Login</th>
+
+
+                    <th>Opcje</th>
+                </tr>
+
+                </thead>
+                <tbody>
+                <tr th:each ="pracownik : ${ListaPracownikow}">
+                    <td> <b  th:utext="${pracownik.idPracownika}">...</b> </td>
+                    <td> <b  th:utext="${pracownik.imie}">...</b> </td>
+                    <td> <b  th:utext="${pracownik.nazwisko}">...</b> </td>
+                    <td> <b  th:utext="${pracownik.telefon}">...</b> </td>
+                    <td> <b  th:utext="${pracownik.pesel}">...</b> </td>
+                    <td> <b  th:utext="${pracownik.dataZatrudnienia}">...</b> </td>
+                    <td> <b  th:utext="${pracownik.pensja}">...</b> </td>
+                    <td> <b  th:utext="${pracownik.login}">...</b> </td>
+                    <td> <a th:href="@{/usun_Pracownika(ID_pracownika=${pracownik.idPracownika})}" class="btn btn-danger">Delete</a>
+                        <a th:href="@{/edytuj_Pracownika(ID_pracownika=${pracownik.idPracownika})}" class="btn btn-primary">Edit</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="container">
+            <a href="/home" class="btn btn-secondary" role="button">Strona główna</a>
+        </div>
+
+
+    </div>
+</section>
+
+</body>
+</html>

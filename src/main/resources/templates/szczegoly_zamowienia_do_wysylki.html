@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <title>Szczegóły zamówienia do wysyłki</title>
+</head>
+
+<body>
+<section layout:fragment="content">
+
+    <div class="container">
+        <h4>Dane adresowe klienta:</h4>
+        <h5> Imię:  <strong th:text="${Zamowienie.klient.imie}"/>  </h5>
+        <h5> Nazwisko:  <strong th:text="${Zamowienie.klient.nazwisko}"/>  </h5>
+        <h5> Ulica:  <strong th:text="${Zamowienie.klient.adres.ulica}"/>  </h5>
+        <h5> Numer domu:  <strong th:text="${Zamowienie.klient.adres.nrDomu}"/>  </h5>
+        <h5> Kod pocztowy:  <strong th:text="${Zamowienie.klient.adres.kodPocztowy}"/>  </h5>
+        <h5> Miejscowość:  <strong th:text="${Zamowienie.klient.adres.miejscowosc}"/>  </h5>
+    </div>
+
+    <br/>
+
+    <div class="container">
+        <h4>   <strong th:text="${header}"/>  </h4>
+
+    </div>
+
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                <tr  class="active">
+                    <th>Nazwa</th>
+                    <th>Kategoria</th>
+                    <th>Liczba sztuk</th>
+                    <th>Cena</th>
+                </tr>
+
+                </thead>
+                <tbody>
+                <tr th:each ="produkt : ${ProduktyZamowienia}">
+                    <td style="display:none;"> <b  th:utext="${produkt.idProduktuZamowienia}">...</b> </td>
+                    <td> <b  th:utext="${produkt.produkt.nazwa}">...</b> </td>
+                    <td> <b  th:utext="${produkt.produkt.kategoriaProduktu.nazwaKategorii}">...</b> </td>
+                    <td> <b  th:utext="${produkt.wybranaLiczbaSztuk}">...</b> </td>
+                    <td> <b  th:utext="${produkt.produkt.cena * produkt.wybranaLiczbaSztuk}">...</b> </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h4> Suma: <b  th:utext="${SumaZamowienia}">...</b> zł </h4>
+
+        <div class="container">
+            <a th:href="@{/wyslij_zamowienie(ID_zamowienia_do_wysylki=${Zamowienie.idZamowienia})}" class="btn btn-success">Wyślij zamówienie</a>
+            <a href="/lista_zamowien_do_wysylki" class="btn btn-primary" role="button">Powrót</a>
+            <a href="/home" class="btn btn-secondary" role="button">Strona główna</a>
+        </div>
+
+    </div>
+</section>
+</body>
+</html>

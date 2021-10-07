@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html lang="pl" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Dodaj nowego klienta</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="container">
+        <h2>Rejestracja:</h2>
+    </div>
+
+    <div class="container">
+        <form class="d-grid gap-3" action="#" th:object="${nowy_klient}" method="post">
+            <div class="form-group">
+                <label> Imię </label>:
+                <input type="text" class="form-control" th:field="*{imie}"/>
+                <p class="alert alert-danger" role="alert" th:if="${# fields.hasErrors('imie')}" th:errors="*{imie}" >
+            </div>
+            <div class="form-group">
+                <label> Nazwisko </label>:
+                <input type="text" class="form-control" th:field="*{nazwisko}"/>
+                <p class="alert alert-danger" role="alert" th:if="${# fields.hasErrors('nazwisko')}" th:errors="*{nazwisko}" >
+            </div>
+            <div class="form-group">
+                <label> Telefon </label>:
+                <input type="text" class="form-control" th:field="*{telefon}"/>
+                <p class="alert alert-danger" role="alert" th:if="${# fields.hasErrors('telefon')}" th:errors="*{telefon}" >
+            </div>
+            <div class="form-group">
+                <label> E-mail </label>:
+                <input type="text" class="form-control" th:field="*{eMail}"/>
+                <p class="alert alert-danger" role="alert" th:if="${# fields.hasErrors('eMail')}" th:errors="*{eMail}" >
+            </div>
+            <div class="form-group">
+                <label> Login </label>:
+                <input type="text" class="form-control" th:field="*{login}"/>
+                <p class="alert alert-danger" role="alert" th:if="${# fields.hasErrors('login')}" th:errors="*{login}" >
+                <p class="alert alert-danger" role="alert" th:if="${LoginInfo == 'istnieje'}"> Użytkownik o podanym loginie już istnieje!</p>
+            </div>
+            <div class="form-group">
+                <label> Hasło </label>:
+                <input type="password" class="form-control" th:field="*{haslo}"/>
+                <p class="alert alert-danger" role="alert" th:if="${# fields.hasErrors('haslo')}" th:errors="*{haslo}" >
+            </div>
+            <div class="form-group">
+                <label> Ulica </label>:
+                <input type="text" class="form-control" th:field="*{adres.ulica}"/>
+                <p class="alert alert-danger" role="alert" th:if="${# fields.hasErrors('adres.ulica')}" th:errors="*{adres.ulica}" >
+            </div>
+            <div class="form-group">
+                <label> Nr domu </label>:
+                <input type="text" class="form-control" th:field="*{adres.nrDomu}"/>
+                <p class="alert alert-danger" role="alert" th:if="${# fields.hasErrors('adres.nrDomu')}" th:errors="*{adres.nrDomu}" >
+            </div>
+            <div class="form-group">
+                <label> Kod pocztowy </label>:
+                <input type="text" class="form-control" th:field="*{adres.kodPocztowy}"/>
+                <p class="alert alert-danger" role="alert" th:if="${# fields.hasErrors('adres.kodPocztowy')}" th:errors="*{adres.kodPocztowy}" >
+            </div>
+            <div class="form-group">
+                <label> Miejscowość </label>:
+                <input type="text" class="form-control" th:field="*{adres.miejscowosc}"/>
+                <p class="alert alert-danger" role="alert" th:if="${# fields.hasErrors('adres.miejscowosc')}" th:errors="*{adres.miejscowosc}" >
+            </div>
+
+
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Stwóż nowe konto</button>
+                <a href="/home" class="btn btn-secondary" role="button">Strona główna</a>
+            </div>
+        </form>
+    </div>
+</section>
+</body>
+</html>

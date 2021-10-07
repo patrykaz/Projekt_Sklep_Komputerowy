@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <title>Zamówienia do wysyłki</title>
+</head>
+
+<body>
+<section layout:fragment="content">
+
+    <div class="container">
+        <h4>   <strong th:text="${header}"/>  </h4>
+
+    </div>
+
+
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                <tr  class="active">
+                    <th>Nr zamówienia</th>
+                    <th>Imię i nazwisko klienta </th>
+                    <th>Data realizacji zamówienia</th>
+                    <th>Status zamówienia</th>
+                    <th>Opcje</th>
+                </tr>
+                </thead>
+
+                <body>
+                <tr th:each ="zamowienie : ${zamowienia_do_wysylki}">
+                    <td> <b  th:utext="${zamowienie.idZamowienia}">...</b> </td>
+                    <td> <b  th:utext="${zamowienie.klient.imie + ' ' + zamowienie.klient.nazwisko}">...</b> </td>
+                    <td> <b th:utext="${zamowienie.dataRealizacjiZamowienia}">...</b> </td>
+                    <td> <b  th:utext="${zamowienie.statusZamowienia.nazwaStatusuZamowienia}">...</b> </td>
+                    <td>
+                        <a th:href="@{/szczegoly_zamowienia_do_wysylki(ID_zamowienia_do_wysylki=${zamowienie.idZamowienia})}" class="btn btn-info">Szczegóły</a>
+                    </td>
+                </tr>
+                </body>
+            </table>
+        </div>
+
+        <div class="container">
+            <a href="/home" class="btn btn-secondary" role="button">Strona główna</a>
+        </div>
+
+    </div>
+</section>
+</body>
+</html>

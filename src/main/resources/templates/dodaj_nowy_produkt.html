@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Dodaj nowy prdukt</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="container">
+        <h2> Dodawanie nowego produktu:</h2>
+    </div>
+
+
+    <div class="container">
+        <form class="d-grid gap-3" action="#" th:object="${nowy_produkt}" method="post">
+            <div class="form-group">
+                <label> Nazwa</label>:
+                <input type="text" class="form-control" th:field="*{nazwa}"/>
+                <p class="alert alert-danger" role="alert" th:if="${# fields.hasErrors('nazwa')}" th:errors="*{nazwa}">
+            </div>
+            <div class="form-group">
+                <label> Kategoria</label>:
+                <select class="form-control" th:field="*{kategoriaProduktu}">
+                    <option
+                            th:each="kategoriaProduktu: ${Lista_kategorii_produktow}"
+                            th:value="${kategoriaProduktu.idKategorii}"
+                            th:text="${kategoriaProduktu.nazwaKategorii}">
+                    </option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label> Opis</label>:
+                <textarea cols="50" rows="4" class="form-control" th:field="*{opis}" ></textarea>
+                <p class="alert alert-danger" role="alert" th:if="${# fields.hasErrors('opis')}" th:errors="*{opis}">
+            </div>
+            <div class="form-group">
+                <label> Cena</label>:
+                <input type="text" class="form-control" th:field="*{cena}"/>
+                <p class="alert alert-danger" role="alert" th:if="${# fields.hasErrors('cena')}" th:errors="*{cena}">
+            </div>
+            <div class="form-group">
+                <label> Liczba sztuk</label>:
+                <input type="text" class="form-control" th:field="*{liczbaSztuk}"/>
+                <p class="alert alert-danger" role="alert" th:if="${# fields.hasErrors('liczbaSztuk')}" th:errors="*{liczbaSztuk}">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Dodaj produkt</button>
+                <a href="/home" class="btn btn-secondary" role="button">Strona główna</a>
+            </div>
+        </form>
+    </div>
+</section>
+</body>
+</html>

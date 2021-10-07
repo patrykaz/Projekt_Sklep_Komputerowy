@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layout">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <title>Lista Produktów</title>
+</head>
+
+<body>
+<section layout:fragment="content">
+
+    <div class="container">
+        <h4>   <strong th:text="${header}"/>  </h4>
+        <form class="d-grid gap-3" action="/lista_produktow_po_wybranej_kategorii" th:object="${WybranaKategoria}" method="get">
+            <div class="form-group">
+                <label> Wybierz kategorie</label>:
+                <select class="form-control" th:field="*{kategoriaProduktu}">
+                    <option
+                            th:each="kategoriaProduktu: ${Lista_kategorii_produktow}"
+                            th:value="${kategoriaProduktu.idKategorii}"
+                            th:text="${kategoriaProduktu.nazwaKategorii}">
+                    </option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Szukaj</button>
+                <a th:href="@{/lista_produktow}" class="btn btn-primary">Wszystkie kategorie</a>
+            </div>
+        </form>
+    </div>
+
+    <br/>
+
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                <tr  class="active">
+                    <th>ID produktu</th>
+                    <th>Nazwa</th>
+                    <th>Kategoria</th>
+                    <th>Cena</th>
+                    <th>Liczba dostępnych sztuk</th>
+                    <th>Opcje</th>
+                </tr>
+
+                </thead>
+                <tbody>
+                <tr th:each ="produkt : ${ListaProduktow}">
+                    <td> <b  th:utext="${produkt.idProduktu}">...</b> </td>
+                    <td> <b  th:utext="${produkt.nazwa}">...</b> </td>
+                    <td> <b  th:utext="${produkt.kategoriaProduktu.nazwaKategorii}">...</b> </td>
+                    <td> <b  th:utext="${produkt.cena}">...</b> </td>
+                    <td> <b  th:utext="${produkt.liczbaSztuk}">...</b> </td>
+                    <td>
+                        <a th:href="@{/szczegoly_produktu(ID_produktu=${produkt.idProduktu})}" class="btn btn-info">Szczegóły</a>
+                        <a th:href="@{/edytuj_Produkt(ID_produktu=${produkt.idProduktu})}" class="btn btn-warning" sec:authorize="hasAnyRole('ROLE_EMPLOYER', 'ROLE_ADMIN')">Edit</a>
+                        <a th:href="@{/usun_Produkt(ID_produktu=${produkt.idProduktu})}" class="btn btn-danger"  sec:authorize="hasAnyRole('ROLE_EMPLOYER', 'ROLE_ADMIN')">Delete</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="container">
+            <a href="/home" class="btn btn-secondary" role="button">Strona główna</a>
+        </div>
+
+    </div>
+</section>
+</body>
+</html>

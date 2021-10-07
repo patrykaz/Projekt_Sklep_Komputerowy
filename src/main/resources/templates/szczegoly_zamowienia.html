@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <title>Lista Produktów</title>
+</head>
+
+<body>
+<section layout:fragment="content">
+
+    <div class="container">
+        <h4>   <strong th:text="${header}"/>  </h4>
+
+    </div>
+
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                <tr  class="active">
+                    <th>Nazwa</th>
+                    <th>Kategoria</th>
+                    <th>Liczba sztuk</th>
+                    <th>Cena</th>
+                </tr>
+
+                </thead>
+                <tbody>
+                <tr th:each ="koszyk : ${ProduktyZamowienia}">
+                    <td style="display:none;"> <b  th:utext="${koszyk.idProduktuZamowienia}">...</b> </td>
+                    <td> <b  th:utext="${koszyk.produkt.nazwa}">...</b> </td>
+                    <td> <b  th:utext="${koszyk.produkt.kategoriaProduktu.nazwaKategorii}">...</b> </td>
+                    <td> <b  th:utext="${koszyk.wybranaLiczbaSztuk}">...</b> </td>
+                    <td> <b  th:utext="${koszyk.produkt.cena * koszyk.wybranaLiczbaSztuk}">...</b> </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h4> Suma: <b  th:utext="${SumaZamowienia}">...</b> zł </h4>
+
+        <div class="container">
+            <a href="/lista_zrealizowanych_zamowien_klienta" class="btn btn-success" role="button">Powrót</a>
+            <a href="/lista_produktow" class="btn btn-primary" role="button">Sklep</a>
+            <a href="/home" class="btn btn-secondary" role="button">Strona główna</a>
+        </div>
+
+    </div>
+</section>
+</body>
+</html>

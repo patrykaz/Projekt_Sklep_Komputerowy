@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+<html lang="pl"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE"></title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<!-- Main Navigation -->
+<nav class="navbar navbar-expand-md navbar-dark bg-primary">
+    <a href="/home">
+        <img class="rounded float-start" width="200" th:src="@{/img/V_kom.png}" alt="logo sklepu"/>
+    </a>
+
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav ml-auto">
+            <div class="container-md">
+                <div class="mx-3">
+                    <h4 class="font-weight-bolder text-white" sec:authorize="isAuthenticated()">Witaj, <span sec:authentication="name"></span></h4>
+                </div>
+                <div class="row">
+                    <div class="col-sm" sec:authorize="isAuthenticated()">
+                        <a th:href="@{/logout}" class="btn btn-light"> Wyloguj </a>
+                    </div>
+                    <div class="col-sm" sec:authorize="isAnonymous()">
+                        <a th:href="@{/login}" class="btn btn-light"> Zaloguj </a>
+                    </div>
+                    <div class="col-sm"sec:authorize="isAnonymous()">
+                        <a th:href="@{/rejestracja}" class="btn btn-light"> Rejstracja </a>
+                    </div>
+                </div>
+            </div>
+
+        </ul>
+    </div>
+</nav>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/home">Home</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item dropdown" sec:authorize="hasAnyRole('ROLE_EMPLOYER', 'ROLE_ADMIN')">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownKlientLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Klienci
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownKlientLink">
+                    <a class="dropdown-item" href="usuwanie_edycja_klientow">Lista klientow</a>
+                    <a class="dropdown-item" href="dodaj_nowego_klienta">Dodaj nowego klienta</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ADMIN')">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPracownikLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Pracownicy
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownPracownikLink">
+                    <a class="dropdown-item" href="/usuwanie_edycja_pracownikow">Lista Pracowników</a>
+                    <a class="dropdown-item" href="/dodaj_nowego_pracownika">Dodaj nowego pracownika</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown" sec:authorize="hasAnyRole('ROLE_EMPLOYER', 'ROLE_ADMIN')">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownProduktLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Produkty
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownProduktLink">
+                    <a class="dropdown-item" href="/lista_produktow">Lista produktów</a>
+                    <a class="dropdown-item" href="/dodaj_nowy_produkt">Dodaj nowy produkt </a>
+                </div>
+            </li>
+            <li class="nav-item dropdown" sec:authorize="hasAnyRole('ROLE_EMPLOYER', 'ROLE_ADMIN')">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownKategoriaLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Kategorie produktów
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownProduktLink">
+                    <a class="dropdown-item" href="/usuwanie_edycja_kategorii_produktow">Lista kategorii produktów</a>
+                    <a class="dropdown-item" href="/dodaj_nowa_kategorie">Dodaj nową kategorię produktu </a>
+                </div>
+            </li>
+            <li class="nav-item dropdown" sec:authorize="hasAnyRole('ROLE_EMPLOYER', 'ROLE_ADMIN')">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownZamowieniaLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Zamówienia
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownProduktLink">
+                    <a class="dropdown-item" href="/lista_zamowien_do_wysylki">Zamówienia do realizacji</a>
+                    <a class="dropdown-item" href="/lista_wszystkich_wyslanych_zamowien">Historia wszystkich zamówień</a>
+                </div>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/lista_produktow">Sklep</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/koszyk_klienta" sec:authorize="hasRole('ROLE_USER')">Koszyk</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/lista_zrealizowanych_zamowien_klienta" sec:authorize="hasRole('ROLE_USER')">Zrealizowane zamowienia</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<br>
+
+<div class="container">
+    <!-- Content Section -->
+    <section layout:fragment="content">
+        <p>This is filled by the content template.</p>
+    </section>
+
+</div> <!-- /container -->
+
+<br>
+<!-- Footer -->
+<footer class="container-fluid text-center">
+    <div class="row">
+        <div class="col-md-12">
+            <p class="text-muted">&copy; 2021 V-Kom. Sklep Komputerowy</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Optional Section -->
+<th:block layout:fragment="optional" />
+
+</body>
+</html>
